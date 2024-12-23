@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder,Validators, ReactiveFormsModule } from '@angular/forms'
 
 
@@ -10,9 +10,14 @@ import { FormGroup, FormBuilder,Validators, ReactiveFormsModule } from '@angular
   styleUrl: './basic-page.component.css'
 })
 
-export class BasicPageComponent {
+export class BasicPageComponent implements OnInit {
 
   form: FormGroup
+  producto = {
+    name:'rtx',
+    price: 2500,
+    inStorage: 2
+  }
 
 constructor( private fb:FormBuilder ){
 
@@ -24,12 +29,23 @@ constructor( private fb:FormBuilder ){
   })
 
 }
+  ngOnInit(): void {
+      // this.form.reset( this.producto )
+    }
 
-onSave(){
-  if (this.form.invalid) {
-    return;
+    isValidField( field:string ){
+      return this.form.controls[field].errors && this.form.controls[field].touched
+    }
+
+  onSave(){
+    if (this.form.invalid) {
+      this.form.markAllAsTouched()
+      return;
+    }
+    console.log(this.form.value)
+
+    this.form.reset({name:"", price: 0, inStorage: 0 });
+
   }
-  console.log(this.form.value)
-}
 
 }
