@@ -37,7 +37,7 @@
             <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">Precio</label>
                 <div class="col-sm-9">
-                    <input type="number"
+                    <input type="number"phyp
                         class="form-control"
                         placeholder="Precio del producto"
                         formControlName = "price"
@@ -60,11 +60,15 @@
                         class="form-control"
                         placeholder="Existencias del producto"
                         formControlName="inStorage"
-                        >
+                    >
 
-                    <span class="form-text text-danger">
-                        Las existencias deben de ser 0 o mayor
-                    </span>
+                    @if (form.controls['inStorage'].getError('required')&& form.controls['inStorage'].touched) {}
+
+                    @if ( form.controls['inStorage'].getError('min')&&form.controls['inStorage'].touched ) {
+                        <span class="form-text text-danger">
+                            Las existencias deben de ser 0 o mayor
+                        </span>
+                    }
                 </div>
             </div>
 
@@ -74,7 +78,7 @@
 
 
 
-                    <button type="submit"
+                    <button [disabled]="form.invalid" type="submit"
                             class="btn btn-primary float-end"
                             
                             >
