@@ -4,16 +4,16 @@
 <form autocomplete="off" [formGroup]="form"  (ngSubmit)="onSubmit()" >
 
     <!-- Nombre -->
-    <div class="mb-3 row">
+<!--     <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Nombre</label>
         <div class="col-sm-9">
             <input class="form-control" formControlName="name"
-                   placeholder="Nombre de la persona">
+                placeholder="Nombre de la persona">
             <span class="form-text text-danger">
-                   error message
+                error message
             </span>
         </div>
-    </div>
+    </div> -->
 
     <!-- Agregar Favorito -->
     <div class="mb-3 row">
@@ -22,11 +22,13 @@
 
             <div class="input-group">
                 <input class="form-control"
+                    [formControl]="newFavorite"
                     placeholder="Agregar favorito">
 
 
                 <button class="btn btn-outline-primary"
                         type="button"
+                        (click)="onAddToFavorites()"
                         >
                     Agregar favorito
                 </button>
@@ -45,15 +47,22 @@
                 <div class="mb-1">
     
                     <div class="input-group">
-                        <input class="form-control" [formControlName]="$index" > 
+                        <input class="form-control" [formControlName]="$index"  > 
                         <button class="btn btn-outline-danger"
-                                type="button">
-                          Eliminar
-                      </button>
+                                type="button"
+                                (click)="onDeleteFavorite($index)"
+                        >
+                            Eliminar
+                        </button>
                     </div>
-                    <span class="form-text text-danger">
-                       Este campo es requerido
-                    </span>
+
+                    @if (this.form.controls['favoriteGames'].getError('required')) {
+
+                        <span class="form-text text-danger">
+                            Este campo es requerido
+                        </span>
+                    }
+
     
                 </div>
             }
@@ -78,7 +87,7 @@
 </form>
 
 
-
+<!-- 
 <span>Valid</span>
 <pre>{{ 'object' | json }}</pre>
 <br>
@@ -90,3 +99,4 @@
 <span>Agregar Juego</span>
 <pre>{{ 'object' | json }}</pre>
 <pre>{{ 'object' | json }}</pre>
+ -->
