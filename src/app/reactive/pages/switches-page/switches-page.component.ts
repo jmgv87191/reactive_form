@@ -31,6 +31,9 @@ export class SwitchesPageComponent {
       this.myForm.markAllAsTouched();
       return;
     }
+
+    console.log(this.myForm.value)
+
   }
 
 }
